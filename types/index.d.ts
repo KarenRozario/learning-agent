@@ -5,17 +5,31 @@
 //   accountId: string;
 // };
 
+// enum Subject {
+//   maths = "CodeMaster",
+//   language = "DataSensai",
+//   science = "DeployGuru",
+//   history = "WebCrafter",
+//   coding = "SEOSensai",
+//   geography = "UXMaster",
+//   economics = "AdStrategist",
+//   finance = "AnalyticsGuru",
+//   business = "BusinessSage",
+// }
+
 enum Subject {
-  maths = "maths",
-  language = "language",
-  science = "science",
-  history = "history",
-  coding = "coding",
-  geography = "geography",
-  economics = "economics",
-  finance = "finance",
-  business = "business",
+  codeMaster = "CodeMaster",
+  dataSensai = "DataSensai",
+  deployGuru = "DeployGuru",
+  webCrafter = "WebCrafter",
+  seoSensai = "SEOSensai",
+  uxMaster = "UXMaster",
+  adStrategist = "AdStrategist",
+  analyticsGuru = "AnalyticsGuru",
+  businessSage = "BusinessSage",
 }
+
+
 
 type Companion = Models.DocumentList<Models.Document> & {
   $id: string;

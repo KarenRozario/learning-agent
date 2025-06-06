@@ -67,7 +67,7 @@ const CompanionForm = () => {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Companion name</FormLabel>
+                            <FormLabel>Agent name</FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="Enter the companion name"
@@ -84,7 +84,7 @@ const CompanionForm = () => {
                     name="subject"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Subject</FormLabel>
+                            <FormLabel>Topic of Discussion</FormLabel>
                             <FormControl>
                                 <Select
                                     onValueChange={field.onChange}
@@ -116,7 +116,7 @@ const CompanionForm = () => {
                     name="topic"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>What should the companion help with?</FormLabel>
+                            <FormLabel>What should the agent help with?</FormLabel>
                             <FormControl>
                                 <Textarea
                                     placeholder="Ex. Derivates & Integrals"
@@ -210,7 +210,7 @@ const CompanionForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full cursor-pointer">Build Your Companion</Button>
+                <Button type="submit" className="w-full cursor-pointer">Build Your Agent</Button>
             </form>
         </Form>
     )

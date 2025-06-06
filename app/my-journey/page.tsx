@@ -53,21 +53,21 @@ const Profile = async () => {
               />
               <p className="text-2xl font-bold">{sessionHistory.length}</p>
             </div>
-            <div>Lessons completed</div>
+            <div>Strategy Sessions Completed</div>
           </div>
           <div className="border border-black rouded-lg p-3 gap-2 flex flex-col h-fit">
             <div className="flex gap-2 items-center">
               <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
               <p className="text-2xl font-bold">{companions.length}</p>
             </div>
-            <div>Companions created</div>
+            <div>Agents created</div>
           </div>
         </div>
       </section>
       <Accordion type="multiple">
         <AccordionItem value="bookmarks">
           <AccordionTrigger className="text-2xl font-bold">
-            Bookmarked Companions {`(${bookmarkedCompanions.length})`}
+            Bookmarked Agents {`(${bookmarkedCompanions.length})`}
           </AccordionTrigger>
           <AccordionContent>
             <CompanionsList
@@ -89,7 +89,7 @@ const Profile = async () => {
         </AccordionItem>
         <AccordionItem value="companions">
           <AccordionTrigger className="text-2xl font-bold">
-            My Companions {`(${companions.length})`}
+            My Agent {`(${companions.length})`}
           </AccordionTrigger>
           <AccordionContent>
             <CompanionsList title="My Companions" companions={companions} />

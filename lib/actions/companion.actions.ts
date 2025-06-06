@@ -68,32 +68,78 @@ export const addToSessionHistory = async (companionId: string) => {
     return data;
 }
 
+// export const getRecentSessions = async (limit = 10) => {
+//     const supabase = createSupabaseClient();
+//     const { data, error } = await supabase
+//         .from('session_history')
+//         .select(`companions:companion_id (*)`)
+//         .order('created_at', { ascending: false })
+//         .limit(limit)
+
+//     if(error) throw new Error(error.message);
+
+//     return data.map(({ companions }) => companions);
+// }
+
+// lib/actions/companion.actions.js
 export const getRecentSessions = async (limit = 10) => {
-    const supabase = createSupabaseClient();
-    const { data, error } = await supabase
-        .from('session_history')
-        .select(`companions:companion_id (*)`)
-        .order('created_at', { ascending: false })
-        .limit(limit)
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from('session_history')
+    .select(`
+      companion_id,
+      companions:companion_id (*)
+    `)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(error.message);
 
-    if(error) throw new Error(error.message);
+  // Deduplicate by companion_id
+  const uniqueCompanions = Array.from(
+    new Map(data.map(item => [item.companion_id, item.companions])).values()
+  );
 
-    return data.map(({ companions }) => companions);
-}
+  console.log('Recent sessions:', uniqueCompanions);
+  console.log(
+    'Duplicate IDs:',
+    data.map(item => item.companion_id).filter((id, index, arr) => arr.indexOf(id) !== index)
+  );
+
+  return uniqueCompanions;
+};
+
+// export const getUserSessions = async (userId: string, limit = 10) => {
+//     const supabase = createSupabaseClient();
+//     const { data, error } = await supabase
+//         .from('session_history')
+//         .select(`companions:companion_id (*)`)
+//         .eq('user_id', userId)
+//         .order('created_at', { ascending: false })
+//         .limit(limit)
+
+//     if(error) throw new Error(error.message);
+
+//     return data.map(({ companions }) => companions);
+// }
 
 export const getUserSessions = async (userId: string, limit = 10) => {
-    const supabase = createSupabaseClient();
-    const { data, error } = await supabase
-        .from('session_history')
-        .select(`companions:companion_id (*)`)
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
-        .limit(limit)
+  const supabase = createSupabaseClient();
+  const { data, error } = await supabase
+    .from('session_history')
+    .select('companion_id, companions:companion_id (*)')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
 
-    if(error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
-    return data.map(({ companions }) => companions);
-}
+  // Deduplicate by companion_id to prevent duplicates
+  const uniqueCompanions = Array.from(
+    new Map(data.map(item => [item.companion_id, item.companions])).values()
+  );
+
+  return uniqueCompanions;
+};
 
 export const getUserCompanions = async (userId: string) => {
     const supabase = createSupabaseClient();
